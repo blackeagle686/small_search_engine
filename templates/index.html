@@ -11,26 +11,34 @@
 
   <!-- Custom Styles -->
   <style>
+    /* Base Colors */
+    :root {
+      --primary-dark: #222831;
+      --secondary-dark: #393E46;
+      --accent: #00ADB5;
+      --light: #EEEEEE;
+    }
+
     body {
-      background-color: #f9f6f1;
-      color: #2d2d2d;
+      background-color: var(--primary-dark);
+      color: var(--light);
       font-family: 'Segoe UI', sans-serif;
     }
 
     .navbar {
-      background-color: #4d6a52;
+      background-color: var(--secondary-dark);
       padding: 1rem 0;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     .navbar-brand {
       font-weight: bold;
-      color: #f2e9e1;
+      color: var(--accent);
       font-size: 1.5rem;
     }
 
     .navbar-text {
-      color: #e4ddd5;
+      color: var(--light);
     }
 
     .header {
@@ -39,21 +47,21 @@
     }
 
     .header h2 {
-      color: #4d6a52;
+      color: var(--accent);
       font-size: 2.8rem;
       margin-bottom: 10px;
     }
 
     .header p {
-      color: #7a7a7a;
+      color: var(--light);
       font-size: 1.1rem;
     }
 
     .search-box {
-      background: #fff;
+      background: var(--secondary-dark);
       padding: 35px;
       border-radius: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
     }
 
     .form-control,
@@ -61,44 +69,59 @@
       border-radius: 10px;
     }
 
+    .form-control {
+      background-color: var(--primary-dark);
+      color: var(--light);
+      border: 1px solid var(--accent);
+    }
+
+    .form-control:focus {
+      background-color: var(--primary-dark);
+      color: var(--light);
+      border-color: var(--accent);
+      box-shadow: none;
+    }
+
     .btn-search {
-      background-color: #6f8f6b;
-      color: #fff;
+      background-color: var(--accent);
+      color: var(--primary-dark);
       font-weight: 600;
       transition: background-color 0.3s;
     }
 
     .btn-search:hover {
-      background-color: #5a7657;
+      background-color: #00CED1;
     }
 
     .result-card {
-      background-color: #fffefc;
-      border: 1px solid #d9d5ce;
-      border-left: 5px solid #6f8f6b;
+      background-color: var(--secondary-dark);
+      border: 1px solid var(--accent);
+      border-left: 5px solid var(--accent);
       padding: 20px;
       border-radius: 12px;
       margin-bottom: 20px;
       transition: transform 0.2s;
+      color: var(--light);
     }
 
     .result-card:hover {
       transform: scale(1.01);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     }
 
     .result-card a {
-      color: #4d6a52;
+      color: var(--accent);
       font-weight: 500;
       text-decoration: none;
     }
 
     .form-check-input:checked {
-      background-color: #6f8f6b;
-      border-color: #6f8f6b;
+      background-color: var(--accent);
+      border-color: var(--accent);
     }
 
     .metrics {
-      background-color: #f0ede8;
+      background-color: var(--secondary-dark);
       padding: 25px;
       border-radius: 12px;
     }
@@ -113,7 +136,7 @@
 
     .icon-grid i {
       font-size: 2.5rem;
-      color: #6f8f6b;
+      color: var(--accent);
       transition: transform 0.3s ease;
     }
 
@@ -122,20 +145,22 @@
     }
 
     hr {
-      border-color: #d3cfc7;
+      border-color: var(--accent);
     }
 
     .btn-evaluate {
-      background-color: #4d6a52;
+      background-color: var(--accent);
+      color: var(--primary-dark);
       font-weight: 500;
     }
 
     .btn-evaluate:hover {
-      background-color: #3f5a46;
+      background-color: #00CED1;
     }
 
     .text-muted small {
       font-size: 0.85rem;
+      color: var(--light);
     }
   </style>
 </head>
