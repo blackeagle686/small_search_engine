@@ -3,7 +3,7 @@
 ## 🔍 Small Hotel Explorer System
 
 A **Small Hotel Explorer System** built using **Flask** and **Bootstrap** that helps users **discover similar hotels** using AI techniques.
-### with my brother: ** Hosam Ali **
+
 ---
 
 ## ⚙️ Features
@@ -34,5 +34,3 @@ A **Small Hotel Explorer System** built using **Flask** and **Bootstrap** that h
 ```bash
 git clone https://github.com/yourusername/small_search_engine.git
 cd small_search_engine
-
-fix it
