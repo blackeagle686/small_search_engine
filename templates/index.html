@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hotel Explorer | Smart Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <style>
+    body {
+      background-color: #f9f6f1;
+      color: #2d2d2d;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .navbar {
+      background-color: #4d6a52;
+      padding: 1rem 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      color: #f2e9e1;
+      font-size: 1.5rem;
+    }
+
+    .navbar-text {
+      color: #e4ddd5;
+    }
+
+    .header {
+      text-align: center;
+      padding: 60px 0 30px;
+    }
+
+    .header h2 {
+      color: #4d6a52;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #7a7a7a;
+      font-size: 1.1rem;
+    }
+
+    .search-box {
+      background: #fff;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    }
+
+    .form-control,
+    .btn {
+      border-radius: 10px;
+    }
+
+    .btn-search {
+      background-color: #6f8f6b;
+      color: #fff;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .btn-search:hover {
+      background-color: #5a7657;
+    }
+
+    .result-card {
+      background-color: #fffefc;
+      border: 1px solid #d9d5ce;
+      border-left: 5px solid #6f8f6b;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      transition: transform 0.2s;
+    }
+
+    .result-card:hover {
+      transform: scale(1.01);
+    }
+
+    .result-card a {
+      color: #4d6a52;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .form-check-input:checked {
+      background-color: #6f8f6b;
+      border-color: #6f8f6b;
+    }
+
+    .metrics {
+      background-color: #f0ede8;
+      padding: 25px;
+      border-radius: 12px;
+    }
+
+    .icon-grid {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .icon-grid i {
+      font-size: 2.5rem;
+      color: #6f8f6b;
+      transition: transform 0.3s ease;
+    }
+
+    .icon-grid i:hover {
+      transform: scale(1.2);
+    }
+
+    hr {
+      border-color: #d3cfc7;
+    }
+
+    .btn-evaluate {
+      background-color: #4d6a52;
+      font-weight: 500;
+    }
+
+    .btn-evaluate:hover {
+      background-color: #3f5a46;
+    }
+
+    .text-muted small {
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span class="navbar-brand"><i class="bi bi-building"></i> Hotel Explorer</span>
+      <span class="navbar-text"><i class="bi bi-globe"></i> Explore Worldwide</span>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container py-5">
+    <!-- Header -->
+    <div class="header">
+      <h2><i class="bi bi-house-door-fill"></i> Smart Hotel Search</h2>
+      <p>Advanced search engine for hotels and accommodations worldwide</p>
+    </div>
+
+    <!-- Icon Grid -->
+    <div class="icon-grid mb-4">
+      <i class="bi bi-building" title="Hotels"></i>
+      <i class="bi bi-house-door-fill" title="Homes"></i>
+      <i class="bi bi-door-open" title="Open Rooms"></i>
+      <i class="bi bi-stars" title="Ratings"></i>
+      <i class="bi bi-geo-alt-fill" title="Locations"></i>
+    </div>
+
+    <!-- Search Form -->
+    <form method="POST" class="search-box mb-5">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-6">
+          <label for="query" class="form-label"><i class="bi bi-card-text"></i> Search Query</label>
+          <input type="text" id="query" name="query" class="form-control" placeholder="Search for luxury hotels..." value="{{ query }}" required>
+        </div>
+        <div class="col-md-3">
+          <label for="num_results" class="form-label"><i class="bi bi-list-ol"></i> Number of Results</label>
+          <input type="number" id="num_results" name="num_results" class="form-control" min="1" max="10" value="5">
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-search w-100" type="submit">
+            <i class="bi bi-search-heart-fill"></i> Search
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Results Section -->
+    {% if results %}
+    <p>
+      <img  src="{{ flag_path }}" alt="Flag" style="border-radius:20px; height: 30vw; width:80vw; margin-right: 5px; box-shadow:gray 2px 2px 2px 2px;">
+    </p>
+    
+    <section class="mb-5">
+      <h4 class="text-success mb-3">
+        <i class="bi bi-bookmark-check"></i> Mark Relevant Results
+      </h4>
+      <form method="POST">
+        {% for r in results %}
+        <article class="result-card p-3 mb-3 border rounded shadow-sm">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="relevant" value="{{ loop.index0 }}" id="relevant{{ loop.index0 }}">
+            <label class="form-check-label w-100" for="relevant{{ loop.index0 }}">
+              <header class="mb-2">
+                <h3><i class="bi bi-star-fill icon-box text-warning"></i> {{ r.Hotel_Name }}</h3>
+              </header>
+              <ul class="list-unstyled ps-3">
+                <li><i class="bi bi-star-half"></i> <strong>Rating:</strong> {{ r.Rating }}</li>
+                <li><i class="bi bi-graph-up"></i> <strong>Score:</strong> {{ r.Score }}</li>
+                <li><i class="bi bi-chat-left-text"></i> <strong>Reviews:</strong> {{ r.Number_Reviews }}</li>
+                <li><i class="bi bi-currency-dollar"></i> <strong>Price:</strong> {{ r.Price }}</li>
+              </ul>
+            </label>
+          </div>
+          <p class="text-muted mt-2">
+            <i class="bi bi-geo-alt"></i> {{ r.City }}, {{ r.Country }}
+          </p>
+        </article>
+        {% endfor %}
+        <button class="btn btn-evaluate mt-4 px-4" type="submit">
+          <i class="bi bi-bar-chart-line-fill"></i> Evaluate Results
+        </button>
+      </form>
+    </section>
+    {% endif %}
+    
+    <!-- Metrics Section -->
+    {% if metrics %}
+    <hr class="my-5">
+    <section>
+      {% if query %}
+        <h2 class="mb-3"><i class="bi bi-search"></i> Search Query: "{{ query }}"</h2>
+      {% endif %}
+    
+      <h4 class="text-success"><i class="bi bi-graph-up-arrow"></i> Evaluation Metrics</h4>
+      <ul class="list-unstyled mt-3">
+        {% for key, val in metrics.items() %}
+        <li>
+          <i class="bi bi-check2-circle text-success me-2"></i>
+          <strong>{{ key }}:</strong> {{ val }}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    
+  </div>
+
+  {% if error %}
+  <div class="alert alert-danger mt-4">
+    <i class="bi bi-exclamation-circle-fill"></i> {{ error }}
+  </div>
+  {% endif %}
+  
+
+</body>
+</html>
