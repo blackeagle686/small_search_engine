@@ -1,7 +1,7 @@
 # 🏨 Small Search Engine
 
-## 🔍 Small Hotel Explorer System
-
+## 🔍 Small Hotel Explorer System 
+### This project was developed in collaboration with my brother, Hosam Ali
 A **Small Hotel Explorer System** built using **Flask** and **Bootstrap** that helps users **discover similar hotels** using AI techniques.
 
 ---
